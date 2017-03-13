@@ -44,7 +44,7 @@ https://github.com/SeleniumHQ/docker-selenium
 
 ## Start Selenium stand alone server locally
 * go to the folder where you have downloaded selenium-server-standalone
-* run the follwing command
+* run the following command
 * assuming the selenium version you use is 3.0.1
 ```
 java -jar selenium-server-standalone-3.0.1.jar
@@ -82,4 +82,4 @@ Use cucumber api 1.1.6 in order to have `scenario.getName()`
 mvn dependency:analyze
 ```
 
-While cleaning start with adding missing refences then removed unused.
+While cleaning start with adding missing references then removed unused.
