@@ -7,7 +7,7 @@ import org.openqa.selenium.By;
 public class DemoWebsite extends BasePage {
 
   private Property prop = new Property();
-  private String local_url = prop.read("ft_local_url");
+  private String ft_demo_website_url = prop.read("ft_demo_website_url");
 
   private static final By AGREEMENT_LABEL = By.id("agreement-text");
   private static final By AGREEMENT_CHECKBOX = By.name("MyCheckbox");
@@ -52,9 +52,9 @@ public class DemoWebsite extends BasePage {
   }
 
   public void seeErrorMessage(String errorMessage) {
-    if (errorMessage.equals("You need to agree the Terms and Conditions")){
+    if (errorMessage.equals("You need to agree the Terms and Conditions")) {
       assertTextInElementBy(errorMessage, ERROR_LABEL);
-    } else if (errorMessage.equals("Wrong username and password")){
+    } else if (errorMessage.equals("Wrong username and password")) {
       assertTextInElementBy(errorMessage, ERROR_LOGIN_LABEL);
     }
   }
@@ -70,13 +70,13 @@ public class DemoWebsite extends BasePage {
 
   // Background check
   public void checkPHPVersion() {
-    loadPage(local_url + PHP_INFO_URL);
-    assertTextInElementBy("PHP Version 7.0.16", PHP_VERSION_LABEL);
+    loadPage(ft_demo_website_url + PHP_INFO_URL);
+    assertTextInElementBy("PHP Version 5.6.25", PHP_VERSION_LABEL);
   }
 
   // Background
   public void athentifyUser(String username, String password) {
-    loadPage(local_url + AUTHENTICATION_URL);
+    loadPage(ft_demo_website_url + AUTHENTICATION_URL);
     fillFieldBy(username, USERNAME_TEXTFIELD);
     fillFieldBy(password, PASSWORD_TEXTFIELD);
     clickElementBy(LOGIN_BUTTON);
@@ -108,7 +108,7 @@ public class DemoWebsite extends BasePage {
   }
 
   public void userRedirectedToLoginPage() {
-    loadPage(local_url + AUTHENTICATION_URL);
+    loadPage(ft_demo_website_url + AUTHENTICATION_URL);
   }
 
   public void userEnterUsername(String username) {

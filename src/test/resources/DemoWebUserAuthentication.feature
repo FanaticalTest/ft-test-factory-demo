@@ -1,4 +1,4 @@
-@Project=DemoWebsite @Feature=Authentication @Customer=FanaticalTest
+@Project=DemoWebsite @Feature=Authentication @Customer=FanaticalTest @TestType=Selenium
 Feature: User authentication
 
   @Id=A.3.1

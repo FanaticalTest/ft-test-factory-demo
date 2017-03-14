@@ -1,5 +1,6 @@
 package com.fanaticaltest.test_factory_demo.cucumber;
 
+import com.fanaticaltest.test_factory_demo.api.BooksApi;
 import com.fanaticaltest.test_factory_demo.lib.Property;
 import com.fanaticaltest.test_factory_demo.pages.DemoWebsite;
 import cucumber.api.Scenario;
@@ -10,12 +11,13 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import java.net.MalformedURLException;
 
-public class DemoWebSteps  extends DemoWebsite {
+public class DemoWebSteps extends DemoWebsite {
 
   private Property prop = new Property();
-  private String local_url = prop.read("ft_local_url");
+  private String ft_demo_website_url = prop.read("ft_demo_website_url");
+  private BooksApi books = new BooksApi();
 
-  @Before("@Project=DemoWebsite")
+  @Before("@TestType=Selenium")
   public void before_scenario(Scenario scenario) {
     try {
       beforeScenario(browserNameOS.CHROME_LINUX, scenario);
@@ -24,14 +26,14 @@ public class DemoWebSteps  extends DemoWebsite {
     }
   }
 
-  @After("@Project=DemoWebsite")
+  @After("@TestType=Selenium")
   public void after_scenario(Scenario scenario) {
     afterScenario(scenario);
   }
 
   @Given("^the user is on the shopping page \"([^\"]*)\"$")
   public void the_user_is_on_the_shopping_page(String url) throws Throwable {
-    loadPage(local_url + url);
+    loadPage(ft_demo_website_url + url);
     assertPageTitle("Demo Website - Shopping", url);
   }
 
@@ -47,12 +49,12 @@ public class DemoWebSteps  extends DemoWebsite {
 
   @Then("^the user is redirected to the home page \"([^\"]*)\"$")
   public void the_user_is_redirected_to_the_home_page(String url) throws Throwable {
-    checkRedirection(local_url + url);
+    checkRedirection(ft_demo_website_url + url);
   }
 
   @Given("^the user is on the licence page \"([^\"]*)\"$")
   public void the_user_is_on_the_licence_page(String url) throws Throwable {
-    loadPage(local_url + url);
+    loadPage(ft_demo_website_url + url);
     assertPageTitle("Demo Website - Terms and Conditions", url);
   }
 
@@ -78,7 +80,7 @@ public class DemoWebSteps  extends DemoWebsite {
 
   @Given("^the user is authenticated with the username \"([^\"]*)\" and the password \"([^\"]*)\"$")
   public void the_user_is_authenticated_with_the_username_and_the_password(String username, String password) throws Throwable {
-    athentifyUser(username,password);
+    athentifyUser(username, password);
   }
 
   @When("^the user selects the quantity \"([^\"]*)\"$")
@@ -114,6 +116,26 @@ public class DemoWebSteps  extends DemoWebsite {
   @When("^the user types \"([^\"]*)\" in the password field$")
   public void the_user_types_in_the_password_field(String password) throws Throwable {
     userenterPassword(password);
+  }
+
+  @Given("^reset book list schema and data$")
+  public void reset_book_list_schema_and_data() throws Throwable {
+    books.createTable();
+  }
+
+  @Given("^the system is inserting a new book using post \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\"$")
+  public void the_system_is_inserting_a_new_book_using_post(String title, String author, String edition) throws Throwable {
+    books.addBookByPost(title, author, edition);
+  }
+
+  @Then("^the system is displaying the list of book containing \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\"$")
+  public void the_system_is_displaying_the_list_of_book_containing(String title, String author, String edition) throws Throwable {
+    books.checkBookInList(title, author, edition);
+  }
+
+  @Given("^the system is inserting a new book using get \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\"$")
+  public void the_system_is_inserting_a_new_book_using_get(String title, String author, String edition) throws Throwable {
+    books.addBookByGet(title, author, edition);
   }
 
 }

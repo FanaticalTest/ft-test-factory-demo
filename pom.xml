@@ -4,7 +4,7 @@
 
     <groupId>com.fanaticaltest.factoryDemo</groupId>
     <artifactId>ft-test-factory-demo</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
     <packaging>jar</packaging>
 
     <name>ft-test-factory-demo</name>
@@ -51,6 +51,13 @@
             <artifactId>selenium-support</artifactId>
             <version>${selenium.version}</version>
         </dependency>
+        <!-- rest-assured -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>3.0.1</version>
+            <scope>test</scope>
+        </dependency>
         <!-- logging : ch.qos.logback required even not diretcly used-->
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -79,5 +86,6 @@
             <version>4.11</version>
             <scope>test</scope>
         </dependency>
+        <!-- End -->
     </dependencies>
 </project>
