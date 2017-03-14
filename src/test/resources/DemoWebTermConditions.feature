@@ -1,4 +1,4 @@
-@Project=DemoWebsite @Feature=TermsAndConditions @Customer=FanaticalTest
+@Project=DemoWebsite @Feature=TermsAndConditions @Customer=FanaticalTest @TestType=Selenium
 Feature: Read and agree the Terms and Conditions
 
   Background:

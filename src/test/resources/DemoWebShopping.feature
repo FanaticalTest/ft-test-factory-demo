@@ -1,4 +1,4 @@
-@Project=DemoWebsite @Feature=Shopping @Customer=FanaticalTest
+@Project=DemoWebsite @Feature=Shopping @Customer=FanaticalTest @TestType=Selenium
 Feature: Shopping
 
   Background:
