@@ -10,7 +10,7 @@ import com.fanaticaltest.test_factory_demo.lib.RestApi;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.core.IsCollectionContaining.hasItems;
 
-public class BooksApi {
+public class BooksApi extends RestApi{
 
   private final Logger logger = LoggerFactory.getLogger(BooksApi.class);
   private Property prop = new Property();
@@ -18,7 +18,7 @@ public class BooksApi {
 
   public void createTable() {
 
-    RestApi.setProxy();
+    setProxy();
 
     logger.info("REST call - Books - create table.");
 
@@ -35,7 +35,7 @@ public class BooksApi {
 
   public void addBookByPost(String title, String author, String edition) {
 
-    RestApi.setProxy();
+    setProxy();
 
     logger.info("REST call - Books - add book by post - title:{}, author:{}, edition:{}.", title, author, edition);
 
@@ -49,7 +49,7 @@ public class BooksApi {
 
   public void addBookByGet(String title, String author, String edition) {
 
-    RestApi.setProxy();
+    setProxy();
 
     logger.info("REST call - Books - add book by get - title:{}, author:{}, edition:{}.", title, author, edition);
 
@@ -63,7 +63,7 @@ public class BooksApi {
 
   public void checkBookInList(String title, String author, String edition) {
 
-    RestApi.setProxy();
+    setProxy();
 
     logger.info("REST call - Books - check book in list - title:{}, author:{}, edition:{}.", title, author, edition);
 
