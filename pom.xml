@@ -4,7 +4,7 @@
 
     <groupId>com.fanaticaltest.factoryDemo</groupId>
     <artifactId>ft-test-factory-demo</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <packaging>jar</packaging>
 
     <name>ft-test-factory-demo</name>
