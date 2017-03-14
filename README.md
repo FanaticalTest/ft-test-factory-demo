@@ -1,5 +1,8 @@
 # Fanaticaltest Test factory Demo
 
+## Demo website requirement
+It required ft-demo-website-1-0-1
+
 ## Docker
 
 ### Rebuild

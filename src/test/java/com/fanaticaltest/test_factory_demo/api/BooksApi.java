@@ -7,11 +7,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.fanaticaltest.test_factory_demo.lib.RestApi;
 
-import static io.restassured.RestAssured.get;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.core.IsCollectionContaining.hasItems;
 
-public class BooksApi {
+public class BooksApi extends RestApi{
 
   private final Logger logger = LoggerFactory.getLogger(BooksApi.class);
   private Property prop = new Property();
@@ -19,23 +18,24 @@ public class BooksApi {
 
   public void createTable() {
 
-    RestApi.setProxy();
+    setProxy();
 
     logger.info("REST call - Books - create table.");
 
-    get(ft_demo_website_url + "api/createTable.php")
-        .then()
-        .contentType(ContentType.JSON)
-        .assertThat().body("is_table_dropped", hasItems(true))
-        .assertThat().body("is_table_created", hasItems(true))
-        .assertThat().body("is_test_data_inserted", hasItems(true))
-        .statusCode(200)
-        .log().all();
+    given().
+        get(ft_demo_website_url + "api/createTable.php").
+    then().
+        contentType(ContentType.JSON).
+        assertThat().body("is_table_dropped", hasItems(true)).
+        assertThat().body("is_table_created", hasItems(true)).
+        assertThat().body("is_test_data_inserted", hasItems(true)).
+        statusCode(200).
+        log().all();
   }
 
   public void addBookByPost(String title, String author, String edition) {
 
-    RestApi.setProxy();
+    setProxy();
 
     logger.info("REST call - Books - add book by post - title:{}, author:{}, edition:{}.", title, author, edition);
 
@@ -43,13 +43,13 @@ public class BooksApi {
         queryParam("title", title).
         queryParam("author", author).
         queryParam("edition", edition).
-        when().
+    when().
         post(ft_demo_website_url + "api/insertBook.php");
   }
 
   public void addBookByGet(String title, String author, String edition) {
 
-    RestApi.setProxy();
+    setProxy();
 
     logger.info("REST call - Books - add book by get - title:{}, author:{}, edition:{}.", title, author, edition);
 
@@ -57,25 +57,24 @@ public class BooksApi {
         queryParam("title", title).
         queryParam("author", author).
         queryParam("edition", edition).
-        when().
+    when().
         post(ft_demo_website_url + "api/insertBook.php");
   }
 
   public void checkBookInList(String title, String author, String edition) {
 
-    RestApi.setProxy();
+    setProxy();
 
     logger.info("REST call - Books - check book in list - title:{}, author:{}, edition:{}.", title, author, edition);
 
-    get(ft_demo_website_url + "api/listBooks.php")
-        .then()
-        .contentType(ContentType.JSON)
-        .assertThat().body("book_id", hasItems("3"))
-        .assertThat().body("title", hasItems(title))
-        .assertThat().body("author", hasItems(author))
-        .assertThat().body("edition", hasItems(edition))
-        .statusCode(200)
-        .log().all();
+    given().
+        get(ft_demo_website_url + "api/listBooks.php").
+    then().
+        contentType(ContentType.JSON).
+        assertThat().body("title", hasItems(title)).
+        assertThat().body("author", hasItems(author)).
+        assertThat().body("edition", hasItems(edition)).
+        statusCode(200).
+        log().all();
   }
-
 }
