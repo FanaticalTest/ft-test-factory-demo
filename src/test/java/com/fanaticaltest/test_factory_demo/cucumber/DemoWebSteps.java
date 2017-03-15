@@ -18,17 +18,31 @@ public class DemoWebSteps extends DemoWebsite {
   private BooksApi books = new BooksApi();
 
   @Before("@TestType=Selenium")
-  public void before_scenario(Scenario scenario) {
+  public void before_scenario_selenium() {
     try {
-      beforeScenario(browserNameOS.CHROME_LINUX, scenario);
+      beforeScenario(browserNameOS.CHROME_LINUX);
+    } catch (MalformedURLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Before("@TestType=RestAssured")
+  public void before_scenario_restassured() {
+    try {
+      beforeScenario();
     } catch (MalformedURLException e) {
       e.printStackTrace();
     }
   }
 
   @After("@TestType=Selenium")
-  public void after_scenario(Scenario scenario) {
-    afterScenario(scenario);
+  public void after_scenario_selenium(Scenario scenario) {
+    afterScenario(scenario, true);
+  }
+
+  @After("@TestType=RestAssured")
+  public void after_scenario_restassured(Scenario scenario) {
+    afterScenario(scenario, false);
   }
 
   @Given("^the user is on the shopping page \"([^\"]*)\"$")

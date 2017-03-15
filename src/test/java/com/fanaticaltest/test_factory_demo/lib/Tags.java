@@ -14,7 +14,9 @@ public final class Tags {
 
   public static String getProject(Collection<String> tags) { return getSpecificTag(tags, "@project="); }
 
-  public static String getCustomer(Collection<String> tags) { return getSpecificTag(tags, "@customer="); }
+  public static String getProjectId(Collection<String> tags) { return getSpecificTag(tags, "@projectid="); }
+
+  public static String getTestSuite(Collection<String> tags) { return getSpecificTag(tags, "@testsuite="); }
 
   public static String getSpecificTag(Collection<String> tags, String tagPrefix) {
     for (String tag : tags) {

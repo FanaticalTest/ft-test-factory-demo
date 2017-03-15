@@ -2,6 +2,7 @@ package com.fanaticaltest.test_factory_demo.lib;
 
 import cucumber.api.Scenario;
 import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -40,10 +41,12 @@ public class BasePage {
   private String remoteDriverUrl = prop.read("selenium_url");
   String timeStartScenario;
   String timeEndScenario;
+  private LogTest logTest = new LogTest();
+  private int ft_test_log_required = Integer.parseInt(prop.read("ft_test_log_required"));
 
   public enum browserNameOS {CHROME_PC, FIREFOX_PC, CHROME_MAC, FIREFOX_MAC, CHROME_LINUX, FIREFOX_LINUX, IEXPLORER_PC}
 
-  public void beforeScenario(browserNameOS browser, Scenario scenario) throws MalformedURLException {
+  public void beforeScenario(browserNameOS browser) throws MalformedURLException {
     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
     timeStartScenario = sdf.format(timestamp);
     logger.info("============================Scenario starts=========================================");
@@ -73,24 +76,28 @@ public class BasePage {
     }
   }
 
-  public void afterScenario(Scenario scenario) {
+  public void beforeScenario() throws MalformedURLException {
+    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+    timeStartScenario = sdf.format(timestamp);
+    logger.info("============================Scenario starts=========================================");
+  }
+
+  public void afterScenario(Scenario scenario, boolean isSelenium) {
     String urlRestApi = prop.read("ft_test_log_url");
     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
     timeEndScenario = sdf.format(timestamp);
     try {
       logger.info("******Scenario statistics******");
       logger.info("Test started at : {} ", timeStartScenario);
-      urlRestApi += "testStartDateInString=" + URLEncoder.encode(timeStartScenario, "UTF-8") +"&";
+      urlRestApi += "testStartDate=" + URLEncoder.encode(timeStartScenario, "UTF-8") +"&";
       logger.info("Test finished at : {} ", timeEndScenario);
-      urlRestApi += "testEndDateInString=" + URLEncoder.encode(timeEndScenario, "UTF-8") +"&";
+      urlRestApi += "testEndDdate=" + URLEncoder.encode(timeEndScenario, "UTF-8") +"&";
       logger.info("Scenario status : {} ", scenario.getStatus());
       urlRestApi += "testStatus=" + URLEncoder.encode(scenario.getStatus(), "UTF-8") +"&";
       logger.info("Tags : {} ", scenario.getSourceTagNames());
       urlRestApi += "tags=" + URLEncoder.encode(scenario.getSourceTagNames().toString(), "UTF-8") +"&";
-      logger.info("Customer name : {} ", Tags.getCustomer(scenario.getSourceTagNames()));
-      urlRestApi += "customer=" + URLEncoder.encode(Tags.getCustomer(scenario.getSourceTagNames()), "UTF-8") +"&";
-      logger.info("Project name : {} ", Tags.getProject(scenario.getSourceTagNames()));
-      urlRestApi += "project=" + URLEncoder.encode(Tags.getProject(scenario.getSourceTagNames()), "UTF-8") +"&";
+      logger.info("Project Id : {} ", Tags.getProject(scenario.getSourceTagNames()));
+      urlRestApi += "projectId=" + URLEncoder.encode(Tags.getProjectId(scenario.getSourceTagNames()), "UTF-8") +"&";
       logger.info("Feature name : {} ", Tags.getFeature(scenario.getSourceTagNames()));
       urlRestApi += "feature=" + URLEncoder.encode(Tags.getFeature(scenario.getSourceTagNames()), "UTF-8") +"&";
       logger.info("Scenario id : {} ", Tags.getId(scenario.getSourceTagNames()));
@@ -98,37 +105,48 @@ public class BasePage {
       logger.info("Scenario name : {} ", scenario.getName());
       urlRestApi += "scenarioName=" + URLEncoder.encode(scenario.getName(), "UTF-8") +"&";
       logger.info("Set window size to : {} by {}", window_width, window_height);
-      urlRestApi += "windowSize=" + URLEncoder.encode(window_width + " by "+window_height, "UTF-8") +"&";
+      urlRestApi += "testWindowsSize=" + URLEncoder.encode(window_width + " by "+window_height, "UTF-8") +"&";
       logger.info("Set default timeout to : {} ", timeout_in_second);
-      urlRestApi += "timeout=" + URLEncoder.encode(String.valueOf(timeout_in_second), "UTF-8") +"&";
+      urlRestApi += "testTimeout=" + URLEncoder.encode(String.valueOf(timeout_in_second), "UTF-8") +"&";
+      logger.info("Test Suite : {} ", Tags.getTestSuite(scenario.getSourceTagNames()));
+      urlRestApi += "testSuite=" + URLEncoder.encode(Tags.getTestSuite(scenario.getSourceTagNames()), "UTF-8") +"&" ;
     } catch (UnsupportedEncodingException e) {
       logger.info("UnsupportedEncodingException : {} ", e.toString());
     }
-    //Take screenshot if scenario fails
-    try {
-      if (scenario.isFailed()) {
-        getScreenshot(timeEndScenario + ".png");
-        urlRestApi += "screenshotFileName=" + URLEncoder.encode(timeEndScenario + ".png", "UTF-8") +"&";
+    //Take screenshot if scenario fails and selenium
+    if (isSelenium == true){
+      try {
+        if (scenario.isFailed()) {
+          getScreenshot(timeEndScenario + ".png");
+          urlRestApi += "screenshotUrl=" + URLEncoder.encode(timeEndScenario + ".png", "UTF-8") +"&";
+        }
+        else
+        {
+          urlRestApi += "screenshotUrl=" + URLEncoder.encode("none", "UTF-8") +"&";
+        }
+      } catch (Exception e) {
+        logger.error("Error when taking a screenshot");
+        e.printStackTrace();
       }
-      else
-      {
-        urlRestApi += "screenshotFileName=" + URLEncoder.encode("none", "UTF-8") +"&";
+      //close instance
+      try {
+        driver.quit();
+      } catch (Exception e) {
+        logger.error("Error when closing the browser");
+        e.printStackTrace();
       }
-    } catch (Exception e) {
-      logger.error("Error when taking a screenshot");
-      e.printStackTrace();
     }
-    //close instance
-    try {
-      driver.quit();
-    } catch (Exception e) {
-      logger.error("Error when closing the browser");
-      e.printStackTrace();
+    if (ft_test_log_required==1){
+      try {
+        logger.info("ft-test-log url {}",urlRestApi);
+        logTest.send(urlRestApi);
+      } catch (IOException e) {
+        logger.info("IOException : {} ", e.toString());
+      }
     }
-    urlRestApi += "buildServerId=buildServerId" +"&";
-    urlRestApi += "buildId=buildId" +"&";
-    urlRestApi += "buildJobName=buildJobName";
-    logger.info("ft-test-log url {}",urlRestApi);
+    else {
+      logger.info("Test log is unable.");
+    }
     logger.info("=============================Scenario ends==========================================");
   }
 

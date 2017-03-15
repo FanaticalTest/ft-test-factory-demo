@@ -1,4 +1,4 @@
-@Project=DemoWebsite @Feature=BookList @Customer=FanaticalTest @TestType=RestAssured
+@Project=DemoWebsite @Feature=BookList @Customer=Ziridis @TestType=RestAssured @ProjectId=ft1 @TestSuite=TBD
 Feature: Book List
 
   Background:

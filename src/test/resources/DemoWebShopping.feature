@@ -1,4 +1,4 @@
-@Project=DemoWebsite @Feature=Shopping @Customer=FanaticalTest @TestType=Selenium
+@Project=DemoWebsite @Feature=Shopping @Customer=Ziridis @TestType=Selenium @ProjectId=ft1 @TestSuite=TBD
 Feature: Shopping
 
   Background:
