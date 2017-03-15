@@ -2,7 +2,7 @@
 Feature: Read and agree the Terms and Conditions
 
   Background:
-    Given the web server is running under PHP 7
+    Given the web server is running under PHP "7.0.16"
     And the user is authenticated with the username "test" and the password "test"
 
   @Id=A.1.1

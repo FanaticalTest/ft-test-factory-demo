@@ -73,9 +73,9 @@ public class DemoWebSteps extends DemoWebsite {
     seeErrorMessage(errorMessage);
   }
 
-  @Given("^the web server is running under PHP (\\d+)$")
-  public void the_web_server_is_running_under_PHP(int arg1) throws Throwable {
-    checkPHPVersion();
+  @Given("^the web server is running under PHP \"([^\"]*)\"$")
+  public void the_web_server_is_running_under_PHP(String version) throws Throwable {
+    checkPHPVersion(version);
   }
 
   @Given("^the user is authenticated with the username \"([^\"]*)\" and the password \"([^\"]*)\"$")
