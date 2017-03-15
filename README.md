@@ -76,7 +76,8 @@ mvn clean verify -Dtest=CukesRunner -Dcucumber.options="-t @Feature=TermsAndCond
 mvn clean verify -Dtest=CukesRunner -Dcucumber.options="-t @Feature=Shopping" > log.txt
 mvn clean verify -Dtest=CukesRunner -Dcucumber.options="-t @Feature=Authentication" > log.txt
 mvn clean verify -Dtest=CukesRunner -Dcucumber.options="-t @Feature=BookList" > log.txt
-mvn clean verify -Dtest=CukesRunner -Dcucumber.options="-t @Id=A.4.2" > log.txt
+mvn clean verify -Dtest=CukesRunner -Dcucumber.options="-t @Id=A.1.1" > log.txt
+mvn clean verify -Dtest=CukesRunner -Dcucumber.options="-t @Id=A.4.1" > log.txt
 ```
 
 ## Cucumber version

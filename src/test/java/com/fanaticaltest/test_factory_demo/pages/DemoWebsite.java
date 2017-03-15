@@ -69,9 +69,9 @@ public class DemoWebsite extends BasePage {
   }
 
   // Background check
-  public void checkPHPVersion() {
+  public void checkPHPVersion(String version) {
     loadPage(ft_demo_website_url + PHP_INFO_URL);
-    assertTextInElementBy("PHP Version 5.6.25", PHP_VERSION_LABEL);
+    assertTextInElementBy("PHP Version "+ version, PHP_VERSION_LABEL);
   }
 
   // Background

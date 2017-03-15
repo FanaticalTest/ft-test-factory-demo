@@ -18,17 +18,31 @@ public class DemoWebSteps extends DemoWebsite {
   private BooksApi books = new BooksApi();
 
   @Before("@TestType=Selenium")
-  public void before_scenario(Scenario scenario) {
+  public void before_scenario_selenium() {
     try {
-      beforeScenario(browserNameOS.CHROME_LINUX, scenario);
+      beforeScenario(browserNameOS.CHROME_LINUX);
+    } catch (MalformedURLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Before("@TestType=RestAssured")
+  public void before_scenario_restassured() {
+    try {
+      beforeScenario();
     } catch (MalformedURLException e) {
       e.printStackTrace();
     }
   }
 
   @After("@TestType=Selenium")
-  public void after_scenario(Scenario scenario) {
-    afterScenario(scenario);
+  public void after_scenario_selenium(Scenario scenario) {
+    afterScenario(scenario, true);
+  }
+
+  @After("@TestType=RestAssured")
+  public void after_scenario_restassured(Scenario scenario) {
+    afterScenario(scenario, false);
   }
 
   @Given("^the user is on the shopping page \"([^\"]*)\"$")
@@ -73,9 +87,9 @@ public class DemoWebSteps extends DemoWebsite {
     seeErrorMessage(errorMessage);
   }
 
-  @Given("^the web server is running under PHP (\\d+)$")
-  public void the_web_server_is_running_under_PHP(int arg1) throws Throwable {
-    checkPHPVersion();
+  @Given("^the web server is running under PHP \"([^\"]*)\"$")
+  public void the_web_server_is_running_under_PHP(String version) throws Throwable {
+    checkPHPVersion(version);
   }
 
   @Given("^the user is authenticated with the username \"([^\"]*)\" and the password \"([^\"]*)\"$")
