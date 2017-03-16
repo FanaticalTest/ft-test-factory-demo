@@ -22,7 +22,7 @@ public class LogTest {
   private static String api_proxy_user = prop.read("api_proxy_user");
   private static String api_proxy_pass = prop.read("api_proxy_pass");
 
-  public static String send(String request) throws IOException{
+  private static URLConnection buildCurl(String request)throws IOException{
     URL url = new URL(request);
     URLConnection uc = url.openConnection();
 
@@ -42,7 +42,10 @@ public class LogTest {
 
     uc.setRequestProperty("X-Requested-With", "Curl");
 
+    return uc;
+  }
 
+  private static String buildCurlResponse(URLConnection uc)throws IOException{
     StringBuilder html = new StringBuilder();
     BufferedReader input = null;
     try {
@@ -66,51 +69,19 @@ public class LogTest {
     return html.toString();
   }
 
+  public static String send(String request) throws IOException{
+    URLConnection uc = buildCurl(request);
+    return buildCurlResponse(uc);
+  }
+
   public static String sendBasicAuth(String request, String username, String password) throws IOException{
-    URL url = new URL(request);
-    URLConnection uc = url.openConnection();
-
-    if (api_proxy_required == 1){
-      Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(api_proxy_url, api_proxy_port));
-
-      Authenticator authenticator = new Authenticator() {
-        public PasswordAuthentication getPasswordAuthentication() {
-          return (new PasswordAuthentication(api_proxy_user,
-              api_proxy_pass.toCharArray()));
-        }
-      };
-      Authenticator.setDefault(authenticator);
-
-      uc = url.openConnection(proxy);
-    }
-
-    uc.setRequestProperty("X-Requested-With", "Curl");
+    URLConnection uc = buildCurl(request);
 
     String userpass = username + ":" + password;
     String basicAuth = "Basic " + new String(new Base64().encode(userpass.getBytes()));
     uc.setRequestProperty("Authorization", basicAuth);
 
-    StringBuilder html = new StringBuilder();
-    BufferedReader input = null;
-    try {
-      input = new BufferedReader(new InputStreamReader(uc.getInputStream()));
-      String htmlLine;
-      while ((htmlLine = input.readLine()) != null) {
-        html.append(htmlLine);
-      }
-    }
-    catch (IOException e) {
-      e.printStackTrace();
-    }
-    finally {
-      try {
-        input.close();
-      }
-      catch (IOException e) {
-        e.printStackTrace();
-      }
-    }
-    return html.toString();
+    return buildCurlResponse(uc);
   }
 
 }

@@ -59,7 +59,7 @@ public class Stats {
       logger.info("Test Suite : {} ", Tags.getTestSuite(mScenario.getSourceTagNames()));
       urlBuilder += "testSuite=" + URLEncoder.encode(Tags.getTestSuite(mScenario.getSourceTagNames()), "UTF-8") +"&" ;
       logger.info("Screenshot : {} ", mScreenshotName);
-      urlBuilder += "screenshotUrl=" + URLEncoder.encode(mScreenshotName, "UTF-8") +"&";
+      urlBuilder += "screenshotUrl=" + URLEncoder.encode(mScreenshotName, "UTF-8");
     } catch (UnsupportedEncodingException e) {
       logger.info("UnsupportedEncodingException : {} ", e.toString());
     }
