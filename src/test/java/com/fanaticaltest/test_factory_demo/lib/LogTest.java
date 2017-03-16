@@ -21,6 +21,9 @@ public class LogTest {
   private static int api_proxy_port = Integer.parseInt(prop.read("api_proxy_port"));
   private static String api_proxy_user = prop.read("api_proxy_user");
   private static String api_proxy_pass = prop.read("api_proxy_pass");
+  private static int ft_test_log_basic_auth = Integer.parseInt(prop.read("ft_test_log_basic_auth"));
+  private static String ft_test_log_user = prop.read("ft_test_log_user");
+  private static String ft_test_log_password = prop.read("ft_test_log_password");
 
   private static URLConnection buildCurl(String request)throws IOException{
     URL url = new URL(request);
@@ -71,17 +74,14 @@ public class LogTest {
 
   public static String send(String request) throws IOException{
     URLConnection uc = buildCurl(request);
-    return buildCurlResponse(uc);
-  }
 
-  public static String sendBasicAuth(String request, String username, String password) throws IOException{
-    URLConnection uc = buildCurl(request);
-
-    String userpass = username + ":" + password;
-    String basicAuth = "Basic " + new String(new Base64().encode(userpass.getBytes()));
-    uc.setRequestProperty("Authorization", basicAuth);
+    if (ft_test_log_basic_auth == 1)
+    {
+      String userPass = ft_test_log_user + ":" + ft_test_log_password;
+      String basicAuth = "Basic " + new String(new Base64().encode(userPass.getBytes()));
+      uc.setRequestProperty("Authorization", basicAuth);
+    }
 
     return buildCurlResponse(uc);
   }
-
 }
