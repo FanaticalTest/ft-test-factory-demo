@@ -5,26 +5,6 @@ It required ft-demo-website-1-0-1
 
 ## Docker
 
-### Rebuild
-```
-sh rebuild.sh
-```
-
-### Build
-```
-docker-compose build
-```
-
-### Start
-```
-docker-compose up -d
-```
-
-### Stop
-```
-docker-compose down
-```
-
 ### Chrome + VNC
 If you are not using docker-compose
 ```
