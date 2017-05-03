@@ -12,6 +12,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -88,8 +89,8 @@ public class BasePage {
     if (isSelenium == true){
       try {
         if (scenario.isFailed()) {
-          getScreenshot(stats.getEndTime() + ".png");
-          stats.setScreenshotName(stats.getEndTime() + ".png");
+          getScreenshot("fail_" + stats.getEndTime() + ".png");
+          stats.setScreenshotName("fail_" + stats.getEndTime() + ".png");
         }
       } catch (Exception e) {
         logger.error("Error when taking a screenshot");
@@ -144,6 +145,20 @@ public class BasePage {
     WebElement elem = findElement(by, timeout_in_second);
     logger.info("Assert value: {}, for element : {}", value, by);
     assertThat(elem.getText(), containsString(value));
+  }
+
+  public void waitAndAssertTextInElementBy(String value, By by)
+  {
+    WebElement elem = findElement(by, timeout_in_second);
+    logger.info("Assert value after waiting: {}, for element : {}", value, by);
+    if (waitForText(by,timeout_in_second,value))
+      assertThat(elem.getText(), containsString(value));
+  }
+
+  public boolean waitForText(By by, long timeoutInSeconds, String value)
+  {
+    logger.info("Wait for text {}, for element : {} ", value, by);
+    return new WebDriverWait(driver, timeoutInSeconds).until(ExpectedConditions.textToBePresentInElementLocated(by, value));
   }
 
   public void assertAttributeInElementBy(String attributeName, String value, By by) {
@@ -211,5 +226,31 @@ public class BasePage {
     WebElement elem = findElement(by, timeout_in_second);
     logger.info("Get html value {}, in object {} ", elem.getAttribute("innerHTML"), by.toString() );
     return elem.getAttribute("innerHTML");
+  }
+
+  public void freezeProcess(long timeInSecond)
+  {
+    logger.info("Freezing process for {} seconds", timeInSecond );
+    try {
+      Thread.sleep(timeInSecond*1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void getIntermediateScreenshots(String prefix)
+  {
+    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+    try {
+      getScreenshot(prefix + "_" + sdf.format(timestamp)+ ".png");
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void mouseOverOneHop(By firstElem, By secondElem)
+  {
+    Actions action = new Actions(driver);
+    action.moveToElement(driver.findElement(firstElem)).moveToElement(driver.findElement(secondElem)).click().build().perform();
   }
 }
