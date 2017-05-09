@@ -1,4 +1,4 @@
-@Project=DemoWebsite @Feature=Authentication @Customer=Ziridis @TestType=Selenium @ProjectId=ft1 @TestSuite=TBD
+@Project=DemoWebsite @Feature=Authentication @Customer=Ziridis @TestType=Selenium @ProjectId=1 @TestSuite=TBD
 Feature: User authentication
 
   @Id=A.3.1

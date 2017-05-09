@@ -1,8 +1,8 @@
-@Project=DemoWebsite @Feature=TermsAndConditions @Customer=Ziridis @TestType=Selenium @ProjectId=ft1 @TestSuite=TBD
+@Project=DemoWebsite @Feature=TermsAndConditions @Customer=Ziridis @TestType=Selenium @ProjectId=1 @TestSuite=TBD
 Feature: Read and agree the Terms and Conditions
 
   Background:
-    Given the web server is running under PHP "7.0.16"
+    Given the web server is running under PHP "7.0.18"
     And the user is authenticated with the username "test" and the password "test"
 
   @Id=A.1.1

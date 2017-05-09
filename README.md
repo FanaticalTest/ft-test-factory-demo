@@ -1,15 +1,27 @@
 # Fanaticaltest Test factory Demo
 
 ## Demo website requirement
-It required ft-demo-website-1-0-1
+It required :
+* ft-demo-website-1-0-1
+* ft-test-log-2-0-1
 
 ## Docker
 
 ### Chrome + VNC
 If you are not using docker-compose
 ```
-docker run -d -p 8080:4444 -p 5900:5900 selenium/standalone-chrome-debug:3.0.1-aluminum
+docker run -d -p 4444:4444 -p 5900:5900 selenium/standalone-chrome-debug:3.0.1-aluminum
 ```
+If you use a docker-compose
+```
+selenium-chrome:
+  image: selenium/standalone-chrome-debug:3.0.1-aluminum
+  container_name: selenium-chrome
+  ports:
+   - 4444:4444
+   - 5900:5900
+```
+
 ### Firefox + VNC
 If you are not using docker-compose
 ```

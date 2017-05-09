@@ -37,29 +37,29 @@ public class Stats {
     try {
       logger.info("******Scenario statistics******");
       logger.info("Test started at : {} ", mStartTime);
-      urlBuilder += "testStartDate=" + URLEncoder.encode(mStartTime, "UTF-8") +"&";
+      urlBuilder += "test_start_date=" + URLEncoder.encode(mStartTime, "UTF-8") +"&";
       logger.info("Test finished at : {} ", mEndTime);
-      urlBuilder += "testEndDdate=" + URLEncoder.encode(mEndTime, "UTF-8") +"&";
+      urlBuilder += "test_end_date=" + URLEncoder.encode(mEndTime, "UTF-8") +"&";
       logger.info("Scenario status : {} ", mScenario.getStatus());
-      urlBuilder += "testStatus=" + URLEncoder.encode(mScenario.getStatus(), "UTF-8") +"&";
+      urlBuilder += "test_status=" + URLEncoder.encode(mScenario.getStatus(), "UTF-8") +"&";
       logger.info("Tags : {} ", mScenario.getSourceTagNames());
       urlBuilder += "tags=" + URLEncoder.encode(mScenario.getSourceTagNames().toString(), "UTF-8") +"&";
       logger.info("Project Id : {} ", Tags.getProject(mScenario.getSourceTagNames()));
-      urlBuilder += "projectId=" + URLEncoder.encode(Tags.getProjectId(mScenario.getSourceTagNames()), "UTF-8") +"&";
+      urlBuilder += "project_id=" + URLEncoder.encode(Tags.getProjectId(mScenario.getSourceTagNames()), "UTF-8") +"&";
       logger.info("Feature name : {} ", Tags.getFeature(mScenario.getSourceTagNames()));
       urlBuilder += "feature=" + URLEncoder.encode(Tags.getFeature(mScenario.getSourceTagNames()), "UTF-8") +"&";
       logger.info("Scenario id : {} ", Tags.getId(mScenario.getSourceTagNames()));
-      urlBuilder += "scenarioId=" + URLEncoder.encode(Tags.getId(mScenario.getSourceTagNames()), "UTF-8") +"&";
+      urlBuilder += "scenario_id=" + URLEncoder.encode(Tags.getId(mScenario.getSourceTagNames()), "UTF-8") +"&";
       logger.info("Scenario name : {} ", mScenario.getName());
-      urlBuilder += "scenarioName=" + URLEncoder.encode(mScenario.getName(), "UTF-8") +"&";
+      urlBuilder += "scenario_name=" + URLEncoder.encode(mScenario.getName(), "UTF-8") +"&";
       logger.info("Set window size to : {} by {}", mWindowWidth, mWindowHeight);
-      urlBuilder += "testWindowsSize=" + URLEncoder.encode(mWindowWidth + " by "+mWindowHeight, "UTF-8") +"&";
+      urlBuilder += "test_windows_size=" + URLEncoder.encode(mWindowWidth + " by "+mWindowHeight, "UTF-8") +"&";
       logger.info("Set default timeout to : {} ", mTimeoutInSecond);
-      urlBuilder += "testTimeout=" + URLEncoder.encode(String.valueOf(mTimeoutInSecond), "UTF-8") +"&";
+      urlBuilder += "test_timeout=" + URLEncoder.encode(String.valueOf(mTimeoutInSecond), "UTF-8") +"&";
       logger.info("Test Suite : {} ", Tags.getTestSuite(mScenario.getSourceTagNames()));
-      urlBuilder += "testSuite=" + URLEncoder.encode(Tags.getTestSuite(mScenario.getSourceTagNames()), "UTF-8") +"&" ;
+      urlBuilder += "test_suite=" + URLEncoder.encode(Tags.getTestSuite(mScenario.getSourceTagNames()), "UTF-8") +"&" ;
       logger.info("Screenshot : {} ", mScreenshotName);
-      urlBuilder += "screenshotUrl=" + URLEncoder.encode(mScreenshotName, "UTF-8");
+      urlBuilder += "screenshot_url=" + URLEncoder.encode(mScreenshotName, "UTF-8");
     } catch (UnsupportedEncodingException e) {
       logger.info("UnsupportedEncodingException : {} ", e.toString());
     }

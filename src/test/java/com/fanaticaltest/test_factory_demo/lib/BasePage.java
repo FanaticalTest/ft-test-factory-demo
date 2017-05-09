@@ -30,7 +30,8 @@ public class BasePage {
   private DesiredCapabilities capabilities;
   private RemoteWebDriver driver;
   private final Logger logger = LoggerFactory.getLogger(BasePage.class);
-  private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+  private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+  private static final SimpleDateFormat sdfScreenshot = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
   private Property prop = new Property();
   private long timeout_in_second = Long.parseLong(prop.read("selenium_timeout_in_second"), 10);
   private int window_width = Integer.parseInt(prop.read("selenium_window_width"));
@@ -89,8 +90,8 @@ public class BasePage {
     if (isSelenium == true){
       try {
         if (scenario.isFailed()) {
-          getScreenshot("fail_" + stats.getEndTime() + ".png");
-          stats.setScreenshotName("fail_" + stats.getEndTime() + ".png");
+          getScreenshot("fail_" + sdfScreenshot.format(timestamp) + ".png");
+          stats.setScreenshotName("fail_" + sdfScreenshot.format(timestamp) + ".png");
         }
       } catch (Exception e) {
         logger.error("Error when taking a screenshot");
@@ -242,7 +243,7 @@ public class BasePage {
   {
     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
     try {
-      getScreenshot(prefix + "_" + sdf.format(timestamp)+ ".png");
+      getScreenshot(prefix + "_" + sdfScreenshot.format(timestamp)+ ".png");
     } catch (Exception e) {
       e.printStackTrace();
     }

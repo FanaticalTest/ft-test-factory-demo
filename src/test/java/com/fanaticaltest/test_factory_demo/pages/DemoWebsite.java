@@ -105,6 +105,7 @@ public class DemoWebsite extends BasePage {
     double vatValue = Double.parseDouble(getInnerHtmlValue(VAT_VALUE_LABEL));
     double totalPrice = (double) (vatValue + totalPriceWoVat);
     assertTextInElementBy(String.valueOf(totalPrice), TOTAL_PRICE_LABEL);
+    getIntermediateScreenshots("shop");
   }
 
   public void userRedirectedToLoginPage() {
