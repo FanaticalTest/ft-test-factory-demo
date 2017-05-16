@@ -4,6 +4,7 @@
 It required :
 * ft-demo-website-1-0-1
 * ft-test-log-2-0-1
+* Since version ft-test-factory-demo-1-2-4 we run internally the test in CI 
 
 ## Docker
 
@@ -52,8 +53,7 @@ Unzip and put in a safe place like C:\dev\marionette
 Then add in local env in path as follow C:\dev\marionette
 
 ## Start test
-* Ensure you have copied or renamed src/test/resources/config.sample.properties to src/test/resources/config.properties
-* Use command line
+* Ensure you have updated accordingly src/test/resources/config.properties
 * (If not using Docker) Ensure to have started selenium-server-standalone
 ```
 cd c:\dev\selenium
