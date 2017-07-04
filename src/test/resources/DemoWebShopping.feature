@@ -2,7 +2,7 @@
 Feature: Shopping
 
   Background:
-    Given the web server is running under PHP "7.0.18"
+    Given the web server is running under PHP "7.0.20"
     And the user is authenticated with the username "test" and the password "test"
 
   @Id=A.2.1
