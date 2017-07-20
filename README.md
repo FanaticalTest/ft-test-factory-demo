@@ -75,6 +75,17 @@ mvn clean verify -Dtest=CukesRunner -Dcucumber.options="-t @Id=A.4.1" > log.txt
 ## Cucumber version
 Use cucumber api 1.1.6 in order to have `scenario.getName()`
 
+### Cucumber Report
+The setup is managed in the POM and in CukesRunner.java
+By default the report is generated in 
+```
+/target/cucumber-html-reports
+```
+At the end of the test run a json file is first generated before generating the report. This file is generated in
+```
+/target/cucumber.json
+```
+
 ## Clean decencies
 ```
 mvn dependency:analyze

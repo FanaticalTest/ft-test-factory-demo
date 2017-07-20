@@ -4,7 +4,7 @@
 
     <groupId>com.fanaticaltest.factoryDemo</groupId>
     <artifactId>ft-test-factory-demo</artifactId>
-    <version>1.2.4</version>
+    <version>1.2.5</version>
     <packaging>jar</packaging>
 
     <name>ft-test-factory-demo</name>
@@ -38,7 +38,7 @@
                         <configuration>
                             <projectName>cucumber-jvm-example</projectName>
                             <outputDirectory>${project.build.directory}</outputDirectory>
-                            <cucumberOutput>${project.build.directory}/cucumber.json</cucumberOutput>
+                            <cucumberOutput>${project.build.directory}</cucumberOutput>
                             <parallelTesting>false</parallelTesting>
                         </configuration>
                     </execution>
