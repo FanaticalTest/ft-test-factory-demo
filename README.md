@@ -1,94 +1,73 @@
-# Fanaticaltest Test factory Demo
+# ft-test-factory-demo
 
-## Demo website requirement
-It required :
-* ft-demo-website-1-0-1
-* ft-test-log-2-0-1
-* Since version ft-test-factory-demo-1-2-4 we run internally the test in CI 
+This test factory based on Serenity BDD is regression functional test for IMD Connect.
+
+## Copy from
+
+https://github.com/serenity-bdd/serenity-cucumber-starter
 
 ## Docker
 
-### Chrome + VNC
-If you are not using docker-compose
+To run Chrome use
 ```
-docker run -d -p 4444:4444 -p 5900:5900 selenium/standalone-chrome-debug:3.0.1-aluminum
-```
-If you use a docker-compose
-```
-selenium-chrome:
-  image: selenium/standalone-chrome-debug:3.0.1-aluminum
-  container_name: selenium-chrome
-  ports:
-   - 4444:4444
-   - 5900:5900
+docker-compose up -d
 ```
 
-### Firefox + VNC
-If you are not using docker-compose
+To connect to the VNC. The password is `secret`.
 ```
-docker run -d -p 4444:4444 -p 5901:5900 selenium/standalone-firefox-debug:3.0.1-aluminum
+vnc://127.0.0.1
 ```
-### VNC access
-To access to the VNC
-No username
-Password : secret
+
+To stop docker
+```
+docker-compose down
+```
 
 ### More info
+More info on how to build latest version and other browser check this link
 ```
 https://github.com/SeleniumHQ/docker-selenium
 ```
 
-## Start Selenium stand alone server locally
-* go to the folder where you have downloaded selenium-server-standalone
-* run the following command
-* assuming the selenium version you use is 3.0.1
+## Run test
+
+### Use Gradle
+
+Open a command window and run:
 ```
-java -jar selenium-server-standalone-3.0.1.jar
+gradle test
+```
+This runs Cucumber features using Cucumber's JUnit runner. The `@RunWith(CucumberWithSerenity.class)` annotation on the `CucumberTestSuite`
+class tells JUnit to kick off Cucumber.
+
+### Clean build
+Open a command window and run:
+```
+gradle clean test
 ```
 
-## Marionette
-If you are not using Docker and you use windows to run selenium, you may need to run Marionnette when using Firefox.
-You need to download the driver : https://github.com/mozilla/geckodriver/releases/download/v0.10.0/geckodriver-v0.10.0-win64.zip
-Unzip and put in a safe place like C:\dev\marionette
-Then add in local env in path as follow C:\dev\marionette
+### Run specific tags
+Update in 'build.gradle' the test section
 
-## Start test
-* Ensure you have updated accordingly src/test/resources/config.properties
-* (If not using Docker) Ensure to have started selenium-server-standalone
 ```
-cd c:\dev\selenium
-java -jar selenium-server-standalone-3.0.1.jar -port 8080
+test {
+    //..
+    systemProperty 't' , '@SmokeTest,@Manual'
+
+}
 ```
-* Go to the root of the project
-* Type the following command
+Here it will run the scenario using `@SmokeTest` or `@Manual`
+
+## Screen sizing
+To set the screen sizing during the test and also the size of the screenshot taken, you could update the size in `serenity.preperties` file
 ```
-mvn clean verify -Dtest=CukesRunner > log.txt
-mvn clean verify -Dtest=CukesRunner -Dcucumber.options="-t @Project=DemoWebsite" > log.txt
-mvn clean verify -Dtest=CukesRunner -Dcucumber.options="-t @Feature=TermsAndConditions" > log.txt
-mvn clean verify -Dtest=CukesRunner -Dcucumber.options="-t @Feature=Shopping" > log.txt
-mvn clean verify -Dtest=CukesRunner -Dcucumber.options="-t @Feature=Authentication" > log.txt
-mvn clean verify -Dtest=CukesRunner -Dcucumber.options="-t @Feature=BookList" > log.txt
-mvn clean verify -Dtest=CukesRunner -Dcucumber.options="-t @Id=A.1.1" > log.txt
-mvn clean verify -Dtest=CukesRunner -Dcucumber.options="-t @Id=A.4.1" > log.txt
+serenity.browser.width=1440
+serenity.browser.height=1200
 ```
 
-## Cucumber version
-Use cucumber api 1.1.6 in order to have `scenario.getName()`
-
-### Cucumber Report
-The setup is managed in the POM and in CukesRunner.java
-By default the report is generated in 
+## Serenity Documentation
+For the full documentation of Serentiy BDD framework check the link
 ```
-/target/cucumber-html-reports
+http://thucydides.info/docs/serenity-staging/
+https://github.com/serenity-bdd/serenity-demos/tree/master/cucumber-webtests
 ```
-At the end of the test run a json file is first generated before generating the report. This file is generated in
-```
-/target/cucumber.json
-```
-
-## Clean decencies
-```
-mvn dependency:analyze
-```
-
-While cleaning start with adding missing references then removed unused.
