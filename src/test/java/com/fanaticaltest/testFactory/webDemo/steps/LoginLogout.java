@@ -17,10 +17,15 @@ public class LoginLogout {
         customer.enters_his_credential(username, password);
     }
 
-
     @Then("^the customer gets a error message \"([^\"]*)\"$")
     public void the_customer_gets_a_error_message(String message) throws Exception {
         customer.gets_login_error(message);
     }
+
+    @Then("^the customer is redirected to the home page$")
+    public void the_customer_is_redirected_to_the_home_page() throws Exception {
+        customer.is_on_home_page();
+    }
+
 
 }
