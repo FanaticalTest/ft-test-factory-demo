@@ -14,7 +14,6 @@ public class LicensingPage extends PageObject {
     @FindBy(xpath="//div[@id='validatorChkBox']")
     WebElementFacade errorMessage;
 
-    //MyCheckbox
     @FindBy(xpath="//input[@name='MyCheckbox']")
     WebElementFacade agreementCheckBox;
 

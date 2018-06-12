@@ -42,7 +42,7 @@ test {
     testLogging.showStandardStreams = true
     systemProperty 'webdriver.remote.url', 'http://localhost:4444/wd/hub'
     systemProperty 'webdriver.remote.driver', 'chrome'
-    //systemProperty 't' , '@ImdUserMgt'
+    //systemProperty 't' , '@FTShopping'
 
 }
 

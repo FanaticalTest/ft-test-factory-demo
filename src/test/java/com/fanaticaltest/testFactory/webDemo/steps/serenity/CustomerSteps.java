@@ -1,9 +1,6 @@
 package com.fanaticaltest.testFactory.webDemo.steps.serenity;
 
-import com.fanaticaltest.testFactory.webDemo.pages.LoginPage;
-import com.fanaticaltest.testFactory.webDemo.pages.YopMail;
-import com.fanaticaltest.testFactory.webDemo.pages.HomePage;
-import com.fanaticaltest.testFactory.webDemo.pages.LicensingPage;
+import com.fanaticaltest.testFactory.webDemo.pages.*;
 import net.thucydides.core.steps.ScenarioSteps;
 
 
@@ -13,6 +10,7 @@ public class CustomerSteps extends ScenarioSteps {
     YopMail yopMail;
     HomePage homePage;
     LicensingPage licensingPage;
+    ShoppingCartPage shoppingCartPage;
 
     public void enters_his_credential(String username, String password) {
         loginPage.login(username, password);
@@ -53,5 +51,37 @@ public class CustomerSteps extends ScenarioSteps {
 
     public void agrees_terms_and_conditions() {
         licensingPage.agreed();
+    }
+
+    public void goes_to_shopping_cart() {
+        shoppingCartPage.open();
+    }
+
+    public void adds_a_product(String productId) {
+        shoppingCartPage.addToCart(productId);
+    }
+
+    public void sees_product_in_shopping_cart(String prodictId) {
+        shoppingCartPage.checkProductInShoppingCart(prodictId);
+    }
+
+    public void selects_quantity(String quantity) {
+        shoppingCartPage.selectQuantity(quantity);
+    }
+
+    public void checks_total_without_vat() {
+        shoppingCartPage.checkTotalWithoutVat();
+    }
+
+    public void checks_vat_value() {
+        shoppingCartPage.checkVatValue();
+    }
+
+    public void checks_total_value() {
+        shoppingCartPage.checkTotalValue();
+    }
+
+    public void clicks_on_done(String buttonValue) {
+        shoppingCartPage.clickDone(buttonValue);
     }
 }
