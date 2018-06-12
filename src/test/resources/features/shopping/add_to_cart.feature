@@ -1,6 +1,6 @@
 Feature: The customer adds to cart some articles
 
-  @FTShopping @Id005
+  @FTShopping @Id005 @FTDemoWebsite
   Scenario Outline: Add to cart - Happy Path
     Given the customer is on the shopping page
     When the customer clicks on the buy button of the product id "<ProductId>"

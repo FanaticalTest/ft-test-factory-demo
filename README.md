@@ -47,16 +47,18 @@ gradle clean test
 ```
 
 ### Run specific tags
-Update in 'build.gradle' the test section
+Update in 'build.gradle' the test section. Assuming we wnat ti run only `@FTDemoWebsite` tag:
 
 ```
 test {
     //..
-    systemProperty 't' , '@SmokeTest,@Manual'
+    systemProperty 'cucumber.options' ,  '-t @FTDemoWebsite'
 
 }
 ```
-Here it will run the scenario using `@SmokeTest` or `@Manual`
+Also you can find predefined gradle task that run specific tags. Example 
+* `gradle clean smokeTest` runs tag `@FTSmokeTest`
+* `gradle clean demoWebsiteTest` runs tag `@FTDemoWebsite`
 
 ## Screen sizing
 To set the screen sizing during the test and also the size of the screenshot taken, you could update the size in `serenity.preperties` file

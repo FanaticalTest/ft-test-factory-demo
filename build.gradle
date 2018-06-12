@@ -38,14 +38,31 @@ dependencies {
             libs.test.assertj
 }
 
-test {
+tasks.withType(Test){
     testLogging.showStandardStreams = true
     systemProperty 'webdriver.remote.url', 'http://localhost:4444/wd/hub'
     systemProperty 'webdriver.remote.driver', 'chrome'
-    //systemProperty 't' , '@FTShopping'
+}
 
+test {
+    //systemProperty 'cucumber.options' ,  '-t @FTSmokeTest'
+}
+
+task smokeTest(type:Test){
+    systemProperty 'cucumber.options' ,  '-t @FTSmokeTest'
+}
+
+task demoWebsiteTest(type:Test){
+    systemProperty 'cucumber.options' ,  '-t @FTDemoWebsite'
 }
 
 gradle.startParameter.continueOnFailure = true
 
 test.finalizedBy(aggregate)
+
+
+
+
+
+
+
