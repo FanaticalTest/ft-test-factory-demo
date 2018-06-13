@@ -8,6 +8,12 @@ https://github.com/serenity-bdd/serenity-cucumber-starter
 
 ## Docker
 
+### Port used
+* Selenium agent : 4444 and 5900
+* Jira-Software : 8081
+
+### Selenium agent
+
 To run Chrome use
 ```
 docker-compose up -d
@@ -23,11 +29,14 @@ To stop docker
 docker-compose down
 ```
 
-### More info
+#### More info
 More info on how to build latest version and other browser check this link
 ```
 https://github.com/SeleniumHQ/docker-selenium
 ```
+
+### Jira-Software
+We have added a Jira-Software instance. When the container is up, will require to add a license. We have persisted the data in `[project-root]/volumes`.
 
 ## Run test
 

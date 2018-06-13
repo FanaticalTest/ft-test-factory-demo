@@ -18,3 +18,6 @@ buildNumber.properties
 
 
 .DS_Store
+
+# data persistencies for docker
+volumes/
