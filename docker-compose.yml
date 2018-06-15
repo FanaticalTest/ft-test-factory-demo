@@ -8,12 +8,3 @@ services:
     ports:
      - 4444:4444
      - 5900:5900
-
-  jira:
-      image: cptactionhank/atlassian-jira-software:latest
-      container_name: ft-jira-software
-      ports:
-        - 8081:8080
-      volumes:
-        - ./volumes/jira:/var/atlassian/jira
-        - ./volumes/logs:/opt/atlassian/jira/logs

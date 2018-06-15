@@ -35,8 +35,42 @@ More info on how to build latest version and other browser check this link
 https://github.com/SeleniumHQ/docker-selenium
 ```
 
-### Jira-Software
-We have added a Jira-Software instance. When the container is up, will require to add a license. We have persisted the data in `[project-root]/volumes`.
+## Dependencies and Artifact
+Before running the test pay attention to the dependencies.
+We are using FanaticalTest Artifactory only used internally. So you will need to comment/remove the Artifactory part and uncomment the public repository.
+
+### FanaticalTest Artifactory
+```
+//...
+
+repositories {
+    //Using local and public repositories
+    //mavenLocal()
+    //jcenter()
+    //Using FanaticalTest repository
+    maven {
+        url "${artifactory_url}/gradle-dev"
+    }
+}
+
+buildscript {
+    repositories {
+        //Using local and public repositories
+        //mavenLocal()
+        //jcenter()
+        //Using FanaticalTest repository
+        maven {
+            url "${artifactory_url}/gradle-dev"
+        }
+    }
+    dependencies {
+        classpath("net.serenity-bdd:serenity-gradle-plugin:1.9.12")
+    }
+}
+
+//...
+```
+
 
 ## Run test
 
