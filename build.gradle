@@ -2,14 +2,24 @@
 defaultTasks 'clean','test','aggregate'
 
 repositories {
-    mavenLocal()
-    jcenter()
+    //Using local and public repositories
+    //mavenLocal()
+    //jcenter()
+    //Using FanaticalTest repository
+    maven {
+        url "${artifactory_url}/gradle-dev"
+    }
 }
 
 buildscript {
     repositories {
-        mavenLocal()
-        jcenter()
+        //Using local and public repositories
+        //mavenLocal()
+        //jcenter()
+        //Using FanaticalTest repository
+        maven {
+            url "${artifactory_url}/gradle-dev"
+        }
     }
     dependencies {
         classpath("net.serenity-bdd:serenity-gradle-plugin:1.9.12")
@@ -45,6 +55,7 @@ tasks.withType(Test){
 }
 
 test {
+    //While you develop you may need to run only some scenarios with a specific tag
     //systemProperty 'cucumber.options' ,  '-t @FTSmokeTest'
 }
 
